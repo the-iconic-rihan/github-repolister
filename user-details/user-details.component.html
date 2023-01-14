@@ -1,0 +1,108 @@
+<form (ngSubmit)="onSubmit()" name="userForm" [formGroup]="userForm">
+  <div class="example-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter your username</mat-label>
+      <input
+        matInput
+        placeholder="johnDoe"
+        formControlName="userName"
+        required
+        class="full-width"
+        value="the-iconic-rihan"
+      />
+      <mat-error
+        *ngIf="
+          username.errors?.['required'] && (username.touched || username.dirty)
+        "
+        >{{ getErrorMessage() }}</mat-error
+      >
+      <mat-error
+        *ngIf="
+        username.errors?.['pattern'] && (username.touched || username.dirty)
+      "
+        >{{ getErrorMessage() }}</mat-error
+      >
+    </mat-form-field>
+    <button mat-raised-button class="full-width" color="primary">Submit</button>
+  </div>
+</form>
+<div *ngIf="loading" class="full-width center">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="user" class="box">
+  <div class="row justify-content-start box-1 mz-elevation-z5">
+    <div class="col m-3">
+      <img [src]="user.avatar_url" class="rounded-pill avatar" alt="Avatar" />
+      <figcaption class="text-center m-2">
+        <span
+          ><img
+            src="../../../assets/link-solid.svg"
+            alt="link"
+            class="svg mx-1"
+            srcset=""
+        /></span>
+        {{ user.html_url }}
+      </figcaption>
+    </div>
+    <div class="col m-3 userInfoBox">
+      <h2>{{ user.name }}</h2>
+      <p>Bio: {{ user.bio }}</p>
+      <p>
+        <span
+          ><img
+            src="../../../assets//location-dot-solid.svg"
+            alt="location"
+            class="svg mx-1"
+            srcset="" /></span
+        >{{ user.location }}
+      </p>
+      <p>
+        <img
+          src="../../../assets/twitter.svg"
+          alt="twitter"
+          class="svg mx-1"
+          srcset=""
+        />
+        <a href="{{ user.html_url }}" target="_blank">
+          {{ user.twitter_username }}</a
+        >
+      </p>
+    </div>
+  </div>
+  <div>
+    <h3 class="text-left heading">Repositories</h3>
+    <div class="container">
+      <mat-card
+        class="card item m-2 p-2"
+        *ngFor="let repository of repositories"
+      >
+        <mat-card-header>
+          <mat-card-title>
+            <a
+              href="{{ user.html_url }}/{{ repository.name }}"
+              target="_blank"
+              class="RepoLink"
+              >{{ repository.name }}</a
+            >
+            <span
+              ><small class="visibility">{{
+                repository.visibility
+              }}</small></span
+            >
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ repository.description }}</p>
+          <mat-card-action>
+            <button mat-flat-button color="primary">
+              {{ repository.language }}
+            </button>
+          </mat-card-action>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div *ngIf="!user">
+  <p>{{ errorMessage }}</p>
+</div>
