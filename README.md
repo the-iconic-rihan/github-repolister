@@ -8,4 +8,4 @@ https://www.youtube.com/watch?v=QelfqcyPVKg
 5.hit "npm i "
 6 "ng serve"
 7. the website will open in localhost:4200
- for the offical hosted link  visti : https://gitrepolister.netlify.app/
+  # for the offical hosted link  visti : https://gitrepolister.netlify.app/
